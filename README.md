@@ -23,6 +23,7 @@ Plain text goes bluah
 
 [00:00.92][01:24.92][02:23.21]Lyric line with many timestamp
 [00:02.86]Just a normal lyric line
+[00:04.55][interlude]
 [00:05.23]First multiline lyric
 [00:05.23]Second multiline lyric
 [00:05.23]Third multiline lyric
@@ -31,116 +32,123 @@ Plain text goes bluah
 console.log(parseLrc(lyric));
 ```
 The output will be:
-  ```json
-  [
-    {
-      "line": 0,
-      "type": "tag",
-      "id": "ti",
-      "value": " Song Title",
-      "raw": "[ti: Song Title]"
-    },
-    {
-      "line": 1,
-      "type": "tag",
-      "id": "ar",
-      "value": " The Best Artist",
-      "raw": "[ar: The Best Artist]"
-    },
-    {
-      "line": 2,
-      "type": "plain",
-      "raw": "Plain text goes bluah"
-    },
-    {
-      "line": 3,
-      "type": "plain",
-      "raw": ""
-    },
-    {
-      "line": 4,
-      "type": "lyric",
-      "timestamp": 920,
-      "content": "Lyric line with many timestamp",
-      "raw": "[00:00.92][01:24.92][02:23.21]Lyric line with many timestamp"
-    },
-    {
-      "line": 4,
-      "type": "lyric",
-      "timestamp": 84920,
-      "content": "Lyric line with many timestamp",
-      "raw": "[00:00.92][01:24.92][02:23.21]Lyric line with many timestamp"
-    },
-    {
-      "line": 4,
-      "type": "lyric",
-      "timestamp": 143210,
-      "content": "Lyric line with many timestamp",
-      "raw": "[00:00.92][01:24.92][02:23.21]Lyric line with many timestamp"
-    },
-    {
-      "line": 5,
-      "type": "lyric",
-      "timestamp": 2860,
-      "content": "Just a normal lyric line",
-      "raw": "[00:02.86]Just a normal lyric line"
-    },
-    {
-      "type": "multiline_lyric",
-      "timestamp": 5230,
-      "lines": [
-        {
-          "line": 6,
-          "content": "First multiline lyric",
-          "raw": "[00:05.23]First multiline lyric"
-        },
-        {
-          "line": 7,
-          "content": "Second multiline lyric",
-          "raw": "[00:05.23]Second multiline lyric"
-        },
-        {
-          "line": 8,
-          "content": "Third multiline lyric",
-          "raw": "[00:05.23]Third multiline lyric"
-        }
-      ],
-      "content": "First multiline lyric\nSecond multiline lyric\nThird multiline lyric"
-    },
-    {
-      "line": 9,
-      "type": "enhanced_lyric",
-      "timestamp": 88000,
-      "words": [
-        {
-          "index": 0,
-          "timestamp": 88780,
-          "content": " Enhanced ",
-          "raw": "<01:28.78> Enhanced "
-        },
-        {
-          "index": 1,
-          "timestamp": 89450,
-          "content": " lyric ",
-          "raw": "<01:29.45> lyric "
-        },
-        {
-          "index": 2,
-          "timestamp": 91220,
-          "content": " word ",
-          "raw": "<01:31.22> word "
-        },
-        {
-          "index": 3,
-          "timestamp": 95290,
-          "content": " by word",
-          "raw": "<01:35.29> by word"
-        }
-      ],
-      "raw": "[01:28.00] <01:28.78> Enhanced <01:29.45> lyric <01:31.22> word <01:35.29> by word"
-    }
-  ]
-  ```
+```json
+[
+  {
+    "line": 0,
+    "type": "metadata",
+    "key": "ti",
+    "value": " Song Title",
+    "raw": "[ti: Song Title]"
+  },
+  {
+    "line": 1,
+    "type": "metadata",
+    "key": "ar",
+    "value": " The Best Artist",
+    "raw": "[ar: The Best Artist]"
+  },
+  {
+    "line": 2,
+    "type": "plain",
+    "raw": "Plain text goes bluah"
+  },
+  {
+    "line": 3,
+    "type": "plain",
+    "raw": ""
+  },
+  {
+    "line": 4,
+    "type": "lyric",
+    "timestamp": 920,
+    "content": "Lyric line with many timestamp",
+    "raw": "[00:00.92][01:24.92][02:23.21]Lyric line with many timestamp"
+  },
+  {
+    "line": 4,
+    "type": "lyric",
+    "timestamp": 84920,
+    "content": "Lyric line with many timestamp",
+    "raw": "[00:00.92][01:24.92][02:23.21]Lyric line with many timestamp"
+  },
+  {
+    "line": 4,
+    "type": "lyric",
+    "timestamp": 143210,
+    "content": "Lyric line with many timestamp",
+    "raw": "[00:00.92][01:24.92][02:23.21]Lyric line with many timestamp"
+  },
+  {
+    "line": 5,
+    "type": "lyric",
+    "timestamp": 2860,
+    "content": "Just a normal lyric line",
+    "raw": "[00:02.86]Just a normal lyric line"
+  },
+  {
+    "line": 6,
+    "type": "instrument",
+    "timestamp": 4550,
+    "part": "interlude",
+    "raw": "[00:04.55][interlude]"
+  },
+  {
+    "type": "multi_lyric",
+    "timestamp": 5230,
+    "lines": [
+      {
+        "line": 7,
+        "content": "First multiline lyric",
+        "raw": "[00:05.23]First multiline lyric"
+      },
+      {
+        "line": 8,
+        "content": "Second multiline lyric",
+        "raw": "[00:05.23]Second multiline lyric"
+      },
+      {
+        "line": 9,
+        "content": "Third multiline lyric",
+        "raw": "[00:05.23]Third multiline lyric"
+      }
+    ],
+    "content": "First multiline lyric\nSecond multiline lyric\nThird multiline lyric"
+  },
+  {
+    "line": 10,
+    "type": "enhanced_lyric",
+    "timestamp": 88000,
+    "words": [
+      {
+        "index": 0,
+        "timestamp": 88780,
+        "content": " Enhanced ",
+        "raw": "<01:28.78> Enhanced "
+      },
+      {
+        "index": 1,
+        "timestamp": 89450,
+        "content": " lyric ",
+        "raw": "<01:29.45> lyric "
+      },
+      {
+        "index": 2,
+        "timestamp": 91220,
+        "content": " word ",
+        "raw": "<01:31.22> word "
+      },
+      {
+        "index": 3,
+        "timestamp": 95290,
+        "content": " by word",
+        "raw": "<01:35.29> by word"
+      }
+    ],
+    "raw": "[01:28.00] <01:28.78> Enhanced <01:29.45> lyric <01:31.22> word <01:35.29> by word"
+  }
+]
+```
 
 ## Types of Line
 ### Plain Line
@@ -162,7 +170,7 @@ Just a basic line with text
   ```
 </details>
 
-### Tag Line
+### Metadata Line
 Line with tag or metadata format
 ```
 [ti:Song Title]
@@ -175,15 +183,15 @@ Line with tag or metadata format
   [
     {
       "line": 0,
-      "type": "tag",
-      "id": "ti",
+      "type": "metadata",
+      "key": "ti",
       "value": "Song Title",
       "raw": "[ti:Song Title]"
     },
     {
       "line": 1,
-      "type": "tag",
-      "id": "ar",
+      "type": "metadata",
+      "key": "ar",
       "value": " Song Artist",
       "raw": "[ar: Song Artist]"
     }
@@ -212,10 +220,10 @@ Default lyric line with timestamp
   ```
 </details>
 
-### MultiTime Lyric Line
+### Repeated Lyric Line
 Lyric line with multiple timestamps to make repeated lyric.
 > [!IMPORTANT]
-> This type is not used by default, `config.multiTime` must be `true` to use this.
+> This type is not used by default, `config.repeatedLyric` must be `true` to use this.
 > See output below.
 ```
 [00:02.83][01:27.23]Lyric line with multiple timestamp
@@ -223,12 +231,12 @@ Lyric line with multiple timestamps to make repeated lyric.
 <details>
   <summary>Output</summary>
   
-  If `config.multiTime` is `true`:
+  If `config.repeatedLyric` is `true`:
   ```json
   [
     {
       "line": 0,
-      "type": "multitime_lyric",
+      "type": "repeated_lyric",
       "timestamps": [ 2830, 87230 ],
       "content": "Lyric line with multiple timestamp",
       "raw": "[00:02.83][01:27.23]Lyric line with multiple timestamp"
@@ -256,10 +264,10 @@ Lyric line with multiple timestamps to make repeated lyric.
   ```
 </details>
 
-### MultiLine Lyric Line
+### Multi Lyric Line
 Merges multiple lyric lines with same timestamps into one index in the array.  
-> [!INFO]
-> You can turn this off by setting `config.multiLine` to `false` and it'll return default LyricLine
+> [!NOTE]
+> You can turn this off by setting `config.multiLyric` to `false` and it'll return default LyricLine
 ```
 [01:26.34]First line
 [01:26.34]Second line
@@ -272,7 +280,7 @@ Merges multiple lyric lines with same timestamps into one index in the array.
   ```json
   [
     {
-      "type": "multiline_lyric",
+      "type": "multi_lyric",
       "timestamp": 86340,
       "lines": [
         {
@@ -299,8 +307,8 @@ Merges multiple lyric lines with same timestamps into one index in the array.
 
 ### Enhanced Lyric Line
 Lyric line that support per word sync.  
-> [!INFO]
-> You can turn this off by setting `config.enhanced` to `false` and it'll return default LyricLine
+> [!NOTE]
+> You can turn this off by setting `config.enhancedLyric` to `false` and it'll return default LyricLine
 ```
 [02:34.829] <02:35> Word <02:35.98> by <02:37.12> word
 ```
@@ -339,6 +347,51 @@ Lyric line that support per word sync.
   ```
 </details>
 
+### Instrument Line
+Line with timestamp but no lyric, like interlude in a music
+```
+[00:00.00][intro]
+[02:43.23]
+[03:32.82][interlude]
+[04:22.34][outro]
+```
+<details>
+  <summary>Output</summary>
+
+  ```json
+  [
+  {
+    "line": 0,
+    "type": "instrument",
+    "timestamp": 0,
+    "part": "intro",
+    "raw": "[00:00.00][intro]"
+  },
+  {
+    "line": 1,
+    "type": "instrument",
+    "timestamp": 163230,
+    "part": "interlude",
+    "raw": "[02:43.23]"
+  },
+  {
+    "line": 2,
+    "type": "instrument",
+    "timestamp": 212820,
+    "part": "interlude",
+    "raw": "[03:32.82][interlude]"
+  },
+  {
+    "line": 3,
+    "type": "instrument",
+    "timestamp": 262340,
+    "part": "outro",
+    "raw": "[04:22.34][outro]"
+  }
+]
+  ```
+</details>
+
 ## Reference
 ### Ⓕ parseLrc(lrc: string, config: IConfig)
 Main function to parse LRC content
@@ -354,6 +407,6 @@ Types of line: [^](#types-of-line)
 
 ### Ⓘ IConfig
 Parser configuration
-- `IConfig.enhanced: boolean` enable parse for enhanced format (default: `true`)
-- `IConfig.multiLine: boolean` merge lines with same timestamp into one index (default: `true`)
-- `IConfig.multiTime: boolean` make line with multiple timestamp into one index instead of multiple index (default: `false`)
+- `IConfig.enhancedLyric: boolean` enable parse for enhanced format (default: `true`)
+- `IConfig.multiLyric: boolean` merge lines with same timestamp into one index (default: `true`)
+- `IConfig.repeatedLyric: boolean` make line with multiple timestamp into one index instead of multiple index (default: `false`)

@@ -1,7 +1,8 @@
 import {
     DEFAULT_CONFIG, LineTypes,
-    LYRIC_LINE, TAG_LINE,
+    LYRIC_LINE, METADATA_LINE,
     ENHANCED_TIMESTAMP, ENHANCED_WORD_SPLITTER,
+    INSTRUMENT_PART,
     type Config, type Lyric
 } from "./constants";
 import { timestampToMs } from "./utils";
@@ -22,11 +23,11 @@ export function parseLrc(lrc: string, config?: Partial<Config>) {
             const [raw, time, lyric] = line.match(LYRIC_LINE) ?? [''];
 
             let timestamps = time.split('][');
-            if (cfg.multiTime && timestamps.length > 1) {
-                // multitime
+            // repeated
+            if (cfg.repeatedLyric && timestamps.length > 1) {
                 parsedLines.push({
                     line: i,
-                    type: LineTypes.MultiTimeLyric,
+                    type: LineTypes.RepeatedLyric,
                     timestamps: timestamps.map(timestamp => timestampToMs(timestamp)),
                     content: lyric,
                     raw,
@@ -34,8 +35,19 @@ export function parseLrc(lrc: string, config?: Partial<Config>) {
             }
             else
                 timestamps.forEach(timestamp => {
+                    // intrument
+                    if (!lyric || INSTRUMENT_PART.test(lyric)) {
+                        const [_, part] = lyric.match(INSTRUMENT_PART) ?? []
+                        parsedLines.push({
+                            line: i,
+                            type: LineTypes.Instrument,
+                            timestamp: timestampToMs(timestamp),
+                            part: lyric ? part : 'interlude',
+                            raw
+                        });
+                    }
                     // enhanced
-                    if (cfg.enhanced && ENHANCED_TIMESTAMP.test(lyric)) {
+                    else if (cfg.enhancedLyric && ENHANCED_TIMESTAMP.test(lyric)) {
                         let wordTimestamps = lyric.match(ENHANCED_TIMESTAMP) ?? [];
                         let wordTexts = lyric.split(ENHANCED_WORD_SPLITTER); wordTexts.shift();
 
@@ -59,16 +71,16 @@ export function parseLrc(lrc: string, config?: Partial<Config>) {
                     }
                     // normal
                     else {
-                        // multiline
+                        // multi
                         let sameTimeIndex = parsedLines.findIndex(p =>
-                            (p.type === LineTypes.Lyric || p.type === LineTypes.MultiLineLyric)
+                            (p.type === LineTypes.Lyric || p.type === LineTypes.MultiLyric)
                             && p.timestamp === timestampToMs(timestamp)
                         );
-                        if (cfg.multiLine && sameTimeIndex !== -1) {
+                        if (cfg.multiLyric && sameTimeIndex !== -1) {
                             let sameLine = parsedLines[sameTimeIndex];
                             if (sameLine.type === LineTypes.Lyric) {
                                 parsedLines[sameTimeIndex] = {
-                                    type: LineTypes.MultiLineLyric,
+                                    type: LineTypes.MultiLyric,
                                     timestamp: sameLine.timestamp,
                                     lines: [
                                         {
@@ -85,7 +97,7 @@ export function parseLrc(lrc: string, config?: Partial<Config>) {
                                     content: sameLine.content + '\n' + lyric
                                 };
                             }
-                            else if (sameLine.type === LineTypes.MultiLineLyric) {
+                            else if (sameLine.type === LineTypes.MultiLyric) {
                                 sameLine.lines.push({
                                     line: i,
                                     content: lyric,
@@ -107,12 +119,12 @@ export function parseLrc(lrc: string, config?: Partial<Config>) {
                 })
         }
         // tag
-        else if (TAG_LINE.test(line)) {
-            const [raw, id, value] = line.match(TAG_LINE) ?? [''];
+        else if (METADATA_LINE.test(line)) {
+            const [raw, key, value] = line.match(METADATA_LINE) ?? [''];
             parsedLines.push({
                 line: i,
-                type: LineTypes.Tag,
-                id, value,
+                type: LineTypes.Metadata,
+                key, value,
                 raw
             })
         }
