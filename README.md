@@ -439,9 +439,9 @@ Types of line: [^](#types-of-line)
 - `LineType.Plain` just a plain text line.
 - `LineType.Tag` metadata tag line.
 - `LineType.Lyric` simple lyric line.
+- `LineType.RepeatedLyric` lyric line with multiple timestamps, <ins>not used</ins> by default.
+- `LineType.MultiLyric` merge of lines with same timestamp.
 - `LineType.EnhancedLyric` enhanced lyric line or lyric that sync per word.
-- `LineType.MultiLineLyric` merge of lines with same timestamp.
-- `LineType.MultiTimeLyric` lyric line with multiple timestamps, <ins>not used</ins> by default.
 - `LineType.Instrument` line with timestamp but no lyric
 
 ### Ⓘ IConfig
