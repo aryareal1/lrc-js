@@ -1,5 +1,5 @@
 {
-  "name": "lrc-js",
+  "name": "@aryareal1/lrc-js",
   "version": "1.0.0",
   "description": "Parse LRC to javascript object",
   "main": "dist/index.cjs.js",
