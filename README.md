@@ -14,7 +14,7 @@ Parse LRC into javascript object.
 Type this to install:
 
 ```sh
-npm install @aryareal1/lrc-js
+npm install @aryareal/lrc-js
 ```
 
 Here is the example usage:
