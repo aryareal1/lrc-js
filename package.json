@@ -1,0 +1,33 @@
+{
+  "name": "lrc-js",
+  "version": "1.0.0",
+  "description": "Parse LRC to javascript object",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "test:local": "node node_modules/jest/bin/jest.js",
+    "build": "rm -rf dist && rollup -c"
+  },
+  "keywords": [
+    "lrc",
+    "lyric",
+    "parser",
+    "typescript"
+  ],
+  "author": "AryaReal",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.2",
+    "jest": "^29.7.0",
+    "rollup": "^4.29.1",
+    "rollup-plugin-dts": "^6.1.1",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.2"
+  }
+}
