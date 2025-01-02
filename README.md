@@ -1,23 +1,28 @@
 # LRC-JS
+
 Parse LRC into javascript object.
 
 ## Features
+
 - Typescript support
 - Browser and Node.js support
 - Default and enchanced LRC format support
 - Simple usage yet powerfull
 
 ## Installation & Usage
+
 Type this to install:
+
 ```sh
 npm install lrc-js
 ```
-Here is the example usage:
-```js
-import { parseLrc } from "lrc-js"
 
-let lyric =
-`[ti: Song Title]
+Here is the example usage:
+
+```js
+import { parseLrc } from "lrc-js";
+
+let lyric = `[ti: Song Title]
 [ar: The Best Artist]
 Plain text goes bluah
 
@@ -31,7 +36,9 @@ Plain text goes bluah
 
 console.log(parseLrc(lyric));
 ```
+
 The output will be:
+
 ```json
 [
   {
@@ -151,11 +158,15 @@ The output will be:
 ```
 
 ## Types of Line
+
 ### Plain Line
+
 Line with just plain text
+
 ```
 Just a basic line with text
 ```
+
 <details>
   <summary>Output</summary>
   
@@ -171,11 +182,14 @@ Just a basic line with text
 </details>
 
 ### Metadata Line
+
 Line with tag or metadata format
+
 ```
 [ti:Song Title]
 [ar: Song Artist]
 ```
+
 <details>
   <summary>Ouput</summary>
   
@@ -200,10 +214,13 @@ Line with tag or metadata format
 </details>
 
 ### Lyric Line
+
 Default lyric line with timestamp
+
 ```
 [00:01.89]Simple lyric line
 ```
+
 <details>
   <summary>Output</summary>
    
@@ -221,13 +238,17 @@ Default lyric line with timestamp
 </details>
 
 ### Repeated Lyric Line
+
 Lyric line with multiple timestamps to make repeated lyric.
+
 > [!IMPORTANT]
 > This type is not used by default, `config.repeatedLyric` must be `true` to use this.
 > See output below.
+
 ```
 [00:02.83][01:27.23]Lyric line with multiple timestamp
 ```
+
 <details>
   <summary>Output</summary>
   
@@ -265,9 +286,12 @@ Lyric line with multiple timestamps to make repeated lyric.
 </details>
 
 ### Multi Lyric Line
-Merges multiple lyric lines with same timestamps into one index in the array.  
+
+Merges multiple lyric lines with same timestamps into one index in the array.
+
 > [!NOTE]
 > You can turn this off by setting `config.multiLyric` to `false` and it'll return default LyricLine
+
 ```
 [01:26.34]First line
 [01:26.34]Second line
@@ -277,89 +301,98 @@ Merges multiple lyric lines with same timestamps into one index in the array.
 <details>
   <summary>Output</summary>
 
-  ```json
-  [
-    {
-      "type": "multi_lyric",
-      "timestamp": 86340,
-      "lines": [
-        {
-          "line": 0,
-          "content": "First line",
-          "raw": "[01:26.34]First line"
-        },
-        {
-          "line": 1,
-          "content": "Second line",
-          "raw": "[01:26.34]Second line"
-        },
-        {
-          "line": 2,
-          "content": "Third line",
-          "raw": "[01:26.34]Third line"
-        }
-      ],
-      "content": "First line\nSecond line\nThird line"
-    }
-  ]
-  ```
+```json
+[
+  {
+    "type": "multi_lyric",
+    "timestamp": 86340,
+    "lines": [
+      {
+        "line": 0,
+        "content": "First line",
+        "raw": "[01:26.34]First line"
+      },
+      {
+        "line": 1,
+        "content": "Second line",
+        "raw": "[01:26.34]Second line"
+      },
+      {
+        "line": 2,
+        "content": "Third line",
+        "raw": "[01:26.34]Third line"
+      }
+    ],
+    "content": "First line\nSecond line\nThird line"
+  }
+]
+```
+
 </details>
 
 ### Enhanced Lyric Line
-Lyric line that support per word sync.  
+
+Lyric line that support per word sync.
+
 > [!NOTE]
 > You can turn this off by setting `config.enhancedLyric` to `false` and it'll return default LyricLine
+
 ```
 [02:34.829] <02:35> Word <02:35.98> by <02:37.12> word
 ```
+
 <details>
   <summary>Output</summary>
 
-  ```json
-  [
-    {
-      "line": 0,
-      "type": "enhanced_lyric",
-      "timestamp": 154829,
-      "words": [
-        {
-          "index": 0,
-          "timestamp": 155000,
-          "content": " Word ",
-          "raw": "<02:35> Word "
-        },
-        {
-          "index": 1,
-          "timestamp": 155980,
-          "content": " by ",
-          "raw": "<02:35.98> by "
-        },
-        {
-          "index": 2,
-          "timestamp": 157120,
-          "content": " word",
-          "raw": "<02:37.12> word"
-        }
-      ],
-      "raw": "[02:34.829] <02:35> Word <02:35.98> by <02:37.12> word"
-    }
-  ]
-  ```
+```json
+[
+  {
+    "line": 0,
+    "type": "enhanced_lyric",
+    "timestamp": 154829,
+    "words": [
+      {
+        "index": 0,
+        "timestamp": 155000,
+        "content": " Word ",
+        "raw": "<02:35> Word "
+      },
+      {
+        "index": 1,
+        "timestamp": 155980,
+        "content": " by ",
+        "raw": "<02:35.98> by "
+      },
+      {
+        "index": 2,
+        "timestamp": 157120,
+        "content": " word",
+        "raw": "<02:37.12> word"
+      }
+    ],
+    "raw": "[02:34.829] <02:35> Word <02:35.98> by <02:37.12> word"
+  }
+]
+```
+
 </details>
 
 ### Instrument Line
+
 Line with timestamp but no lyric, like interlude in a music
+
 ```
 [00:00.00][intro]
 [02:43.23]
 [03:32.82][interlude]
 [04:22.34][outro]
 ```
+
 <details>
   <summary>Output</summary>
 
-  ```json
-  [
+```json
+[
   {
     "line": 0,
     "type": "instrument",
@@ -389,24 +422,32 @@ Line with timestamp but no lyric, like interlude in a music
     "raw": "[04:22.34][outro]"
   }
 ]
-  ```
+```
+
 </details>
 
 ## Reference
+
 ### Ⓕ parseLrc(lrc: string, config: IConfig)
+
 Main function to parse LRC content
 
 ### Ⓔ LineType
+
 Types of line: [^](#types-of-line)
+
 - `LineType.Plain` just a plain text line.
 - `LineType.Tag` metadata tag line.
 - `LineType.Lyric` simple lyric line.
 - `LineType.EnhancedLyric` enhanced lyric line or lyric that sync per word.
 - `LineType.MultiLineLyric` merge of lines with same timestamp.
 - `LineType.MultiTimeLyric` lyric line with multiple timestamps, <ins>not used</ins> by default.
+- `LineType.Instrument` line with timestamp but no lyric
 
 ### Ⓘ IConfig
+
 Parser configuration
+
 - `IConfig.enhancedLyric: boolean` enable parse for enhanced format (default: `true`)
 - `IConfig.multiLyric: boolean` merge lines with same timestamp into one index (default: `true`)
 - `IConfig.repeatedLyric: boolean` make line with multiple timestamp into one index instead of multiple index (default: `false`)
