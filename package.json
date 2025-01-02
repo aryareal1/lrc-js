@@ -17,6 +17,14 @@
     "typescript"
   ],
   "author": "AryaReal",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aryareal1/lrc-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aryareal1/lrc-js/issue"
+  },
+  "homepage": "https://github.com/aryareal1/lrc-js",
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",

@@ -20,7 +20,7 @@ npm install @aryareal/lrc-js
 Here is the example usage:
 
 ```js
-import { parseLrc } from "lrc-js";
+import { parseLrc } from "@aryareal/lrc-js";
 
 let lyric = `[ti: Song Title]
 [ar: The Best Artist]
