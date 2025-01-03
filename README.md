@@ -1,4 +1,4 @@
-# LRC-JS
+# LRC-JS [![](https://img.shields.io/npm/v/%40aryareal%2Flrc-js)](https://npmjs.com/package/@aryareal/lrc-js)
 
 Parse LRC into javascript object.
 
